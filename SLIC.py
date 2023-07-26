@@ -60,14 +60,17 @@ def distance(search_space, center, s, m):
     color_d = ((search_space[:, :, 2] - center[2])**2 + (search_space[:, :, 3] - center[3])**2 + (search_space[:, :, 4] - center[4])**2)**0.5
     return ((color_d / m)**2 + (space_d / s)**2)**0.5
         
+# hyper-parameters
+m = 2
+epochs = 10
 
 filename = 'photo6'
 RGB_path = r'data/'+filename+'.jpg'
 data_RGB = get_RGB(RGB_path)
 h = data_RGB.shape[0]
 w = data_RGB.shape[1]
-SLIC_net = SLIC(h, w, 100, 2, data_RGB, 'cuda')
-center, label = SLIC_net.kmeans(10)
+SLIC_net = SLIC(h, w, 100, m, data_RGB, 'cuda')
+center, label = SLIC_net.kmeans(epochs)
 new = torch.zeros((h, w, 3))
 for n,c in enumerate(center):
     one_label = label == n
@@ -77,4 +80,3 @@ out = new.int().numpy().astype(np.uint8)
 cv2.imshow('123', out)
 cv2.waitKey(0)
 cv2.imwrite('output/'+filename+'.jpg', out)
-print(1)
