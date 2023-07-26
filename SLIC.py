@@ -10,7 +10,7 @@ def get_RGB(path):
     img = cv2.imread(path)
     return torch.transpose(torch.tensor(img), 0, 1)
 
-class SLIC(): # SLIC分割时用RGB图像，之后再用遥感数据
+class SLIC():
     def __init__(self, h, w, k, m, feature, device): # 这里的k不一定为最后的k的数值，因为要开方、除等操作
         self.device = device
         self.h = h # 1024
