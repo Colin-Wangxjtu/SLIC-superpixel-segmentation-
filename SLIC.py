@@ -49,7 +49,7 @@ class SLIC():
                 search_space_label[nearer] = n
                 self.label[x_min: x_max, y_min: y_max] = search_space_label
             for n in range(self.k):
-                label_n = self.label == n # 神奇的操作，可做出bool张量
+                label_n = self.label == n # 可生成bool张量
                 super_pixel = self.feature[label_n]
                 self.center[n] = torch.mean(super_pixel.float(), dim=0)
             print('epoch{} finish'.format(time))
